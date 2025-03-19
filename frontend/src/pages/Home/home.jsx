@@ -4,7 +4,7 @@ import "./home.css";
 
 const Home = () => {
   return (
-    <div>
+    <div className="container">
       <Navbar />
       <div className="home-container">
         <h1>Bem-vindo ao Sistema de Gerenciamento da Veterinária</h1>

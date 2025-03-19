@@ -1,0 +1,58 @@
+/* Container para a tela de signup */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  height: 100vh;
+  padding: 0 20px;
+}
+
+/* Área de conteúdo onde os campos de input e o botão estão localizados */
+.content {
+  gap: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 350px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Rótulo para o título "SISTEMA DE LOGIN" */
+.label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #676767;
+}
+
+/* Rótulo para o texto "Já tem uma conta?" abaixo do botão de signup */
+.label-signin {
+  font-size: 16px;
+  color: #676767;
+}
+
+/* Estilo para a mensagem de erro (se houver) */
+.label-error {
+  font-size: 14px;
+  color: red;
+}
+
+/* Estilo para o texto "Entre", com link */
+.strong {
+  cursor: pointer;
+}
+
+.strong a {
+  text-decoration: none;
+  color: #676767;
+}
+
+.strong a:hover {
+  color: #000;
+}

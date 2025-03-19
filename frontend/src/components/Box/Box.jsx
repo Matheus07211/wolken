@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Box.module.css';
 
 const Box = ({ setMensagem, mensagem }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const applyStyle = (style) => {
     const input = document.getElementById('message-input');
@@ -35,16 +34,12 @@ const Box = ({ setMensagem, mensagem }) => {
 
   return (
     <div className={styles.container}>
-      <button onClick={() => setIsModalOpen(true)} className={styles.infoButton}>
-        ℹ️
-      </button>
-      <input
+      <textarea
         id="message-input"
-        type="text"
         placeholder="Insira a mensagem aqui"
         value={mensagem}
         onChange={handleInputChange}
-        className={styles.input}
+        className={styles.textarea}
       />
       <div className={styles.buttons}>
         <button onClick={() => applyStyle('*')} className={styles.button}>
@@ -56,32 +51,13 @@ const Box = ({ setMensagem, mensagem }) => {
         <button onClick={() => applyStyle('~')} className={styles.button}>
           Tachado
         </button>
-        {/* Novo botão "Nome" */}
         <button onClick={() => insertText('{nome}')} className={styles.button}>
           Nome
         </button>
-        {/* Novo botão "Animal" */}
         <button onClick={() => insertText('{animal}')} className={styles.button}>
           Animal
         </button>
       </div>
-
-      {isModalOpen && (
-        <div className={styles.modalBackdrop} onClick={() => setIsModalOpen(false)}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <h2 className={styles.modalTitle}>Personalização de mensagens</h2>
-            <p>
-              - Para personalizar por nome do cliente, insira: <code>{'{nome}'}</code>.
-            </p>
-            <p>
-              - Para personalizar por tipo do animal, insira: <code>{'{animal}'}</code>.
-            </p>
-            <button onClick={() => setIsModalOpen(false)} className={styles.closeButton}>
-              Fechar
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

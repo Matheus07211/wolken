@@ -2,20 +2,18 @@ import React, { useState } from "react";
 import Input from "../../components/Input/input";
 import Button from "../../components/Button/button";
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import "./signup.css"; // Importando o CSS
+import styles from "./signup.module.css";
 
 const Signup = () => {
+  const [username, setUsername] = useState(""); // Novo estado para nome de usuário
   const [email, setEmail] = useState("");
   const [emailConf, setEmailConf] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { signup } = useAuth();
-
-  const handleSignup = () => {
-    if (!email || !emailConf || !senha) {
+  const handleSignup = async () => {
+    if (!username || !email || !emailConf || !senha) {
       setError("Preencha todos os campos");
       return;
     } else if (email !== emailConf) {
@@ -23,21 +21,43 @@ const Signup = () => {
       return;
     }
 
-    const res = signup(email, senha);
+    try {
+      const response = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          email: email,
+          senha: senha,
+        }),
+      });
 
-    if (res) {
-      setError(res);
-      return;
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Erro ao cadastrar o usuário");
+        return;
+      }
+
+      alert("Usuário cadastrado com sucesso!");
+      navigate("/");
+    } catch (error) {
+      setError("Erro de conexão com o servidor");
     }
-
-    alert("Usuário cadastrado com sucesso!");
-    navigate("/");
   };
 
   return (
-    <div className="container">
-      <label className="label">SISTEMA DE LOGIN</label>
-      <div className="content">
+    <div className={styles.container}>
+      <label className={styles.label}>SISTEMA DE CADASTRO</label>
+      <div className={styles.content}>
+        <Input
+          type="text"
+          placeholder="Digite seu Nome de Usuário"
+          value={username}
+          onChange={(e) => [setUsername(e.target.value), setError("")]}
+        />
         <Input
           type="email"
           placeholder="Digite seu E-mail"
@@ -56,11 +76,11 @@ const Signup = () => {
           value={senha}
           onChange={(e) => [setSenha(e.target.value), setError("")]}
         />
-        <label className="label-error">{error}</label>
+        <label className={styles["label-error"]}>{error}</label>
         <Button Text="Inscrever-se" onClick={handleSignup} />
-        <label className="label-signin">
+        <label className={styles["label-signin"]}>
           Já tem uma conta?
-          <strong className="strong">
+          <strong className={styles.strong}>
             <Link to="/">&nbsp;Entre</Link>
           </strong>
         </label>

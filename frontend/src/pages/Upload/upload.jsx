@@ -1,54 +1,77 @@
 import React, { useState } from "react";
-import "./upload.css";
 import Navbar from "../../components/Navbar/navbar";
+import "./upload.css";
 
 const Upload = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-    if (selectedFile && selectedFile.type === "text/csv") {
+    if (selectedFile && selectedFile.name.endsWith(".xlsx")) {
       setFile(selectedFile);
       setError("");
     } else {
-      setError("Por favor, selecione um arquivo .csv.");
+      setError("Por favor, selecione um arquivo .xlsx.");
       setFile(null);
     }
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (!file) {
       setError("Por favor, selecione um arquivo para fazer o upload.");
       return;
     }
-    // Aqui você pode fazer o envio do arquivo para o servidor, por exemplo.
-    console.log("Arquivo selecionado:", file.name);
-    // Reset após envio (opcional)
-    setFile(null);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        setSuccess(responseData.message);
+        setError("");
+        setFile(null);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || "Erro ao enviar o arquivo.");
+      }
+    } catch (err) {
+      console.error("Erro de conexão:", err);
+      setError("Erro de conexão com o servidor.");
+    }
   };
 
   return (
-    <div> <Navbar/>
-        <div className="upload-container">
-            <h1>Upload de Arquivo CSV</h1>
-            <p>Escolha um arquivo CSV para fazer o upload.</p>
-      
+    <div className="container">
+      <Navbar />
+      <div className="upload-container">
+        <h1>Upload de Arquivo XLSX</h1>
+
         <div className="file-upload">
-            <input
-                type="file"
-                accept=".csv"
-                onChange={handleFileChange}
-            />
+          <input
+            type="file"
+            accept=".xlsx"
+            onChange={handleFileChange}
+          />
         </div>
 
         {error && <p className="error">{error}</p>}
+        {success && <p className="success">{success}</p>}
         {file && <p>Arquivo selecionado: {file.name}</p>}
 
-        <button onClick={handleUpload}>Fazer Upload</button>
-        </div>
+        <button onClick={handleUpload} disabled={!file}>
+          Fazer Upload
+        </button>
+      </div>
     </div>
   );
-}
+};
 
 export default Upload;
