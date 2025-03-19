@@ -1,0 +1,115 @@
+/* Definir a estrutura geral */
+.container {
+    display: flex;
+    flex-direction: row;
+    padding-left: 220px; /* Espaço para a sidebar */
+    padding-top: 20px; /* Espaçamento superior */
+    padding-right: 20px; /* Espaçamento lateral */
+  }
+  
+  .main-content {
+    flex-grow: 1; /* O conteúdo principal ocupa o restante do espaço */
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: auto; /* Caso o conteúdo seja maior que a tela */
+  }
+  
+  /* Estilo para a navbar fixa */
+  .sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #a2ccf7;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Estilo para os itens do menu */
+  .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+  }
+  
+  .menu li {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .menu li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .menu li:hover {
+    background: #34495e;
+    cursor: pointer;
+  }
+  
+  .icon {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+  
+  /* Estilo para o logout isolado na parte inferior */
+  .logout {
+    background: #e74c3c;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    margin-top: 100px;
+  }
+  
+  .logout:hover {
+    background: #c0392b;
+  }
+  
+  .logout .icon {
+    margin-right: 10px;
+  }
+  
+  /* Estilo do Box (mensagens) */
+  .box {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para o Envelope (botão de envio de mensagem) */
+  .envelope-button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .envelope-button:hover {
+    background-color: #2ecc71;
+  }
+  
