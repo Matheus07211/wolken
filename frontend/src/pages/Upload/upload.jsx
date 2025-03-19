@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../components/Navbar/navbar";
 import "./upload.css";
-
+//teste
 const Upload = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
